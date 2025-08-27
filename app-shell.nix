@@ -5,7 +5,7 @@
 # or
 # nix build --file ./app-shell.nix --argstr apps "APP,APP,..." && ./result
 
-{ nixpkgs ? <nixpkgs>
+{ nixpkgs ? "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"
 , apps ? null
 , pythonPackages ? null
 , libs ? null
