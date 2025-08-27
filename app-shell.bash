@@ -15,6 +15,7 @@ Available options:
 
 -n, --nixpkgs         Nixpkgs tarball to use, or an absolute path to a nixpkgs checkout.
                       Default:
+                        <nixpkgs> (if set), otherwise
                         https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz
                       Examples:
                         https://github.com/NixOS/nixpkgs/archive/nixos-24.11.tar.gz
@@ -115,9 +116,7 @@ fi
 
 cmd+=" --file ${app_shell_nix_dir}/app-shell.nix"
 
-if [ -n "${nixpkgs-}" ]; then
-  cmd+=" --argstr nixpkgs $nixpkgs"
-fi
+cmd+=" --argstr nixpkgs ${nixpkgs:-$(nix eval --json --impure --expr '<nixpkgs>' 2>/dev/null | sed 's/"//g')}"
 
 if [ -n "${apps-}" ]; then
   cmd+=" --argstr apps $apps"
